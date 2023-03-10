@@ -93,3 +93,7 @@ curl --location --request POST 'localhost:3000/payouts' \
   ]
 }
 ```
+
+## Submitting
+
+When you have completed the test, please email a link to your public Github Repository to leta@gobunk.co.uk and alex@gobunk.co.uk.

@@ -1,0 +1,16 @@
+{
+  "name": "bunk-dev-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd $(pwd)/api && npm run test",
+    "install-all": "cd $(pwd)/web && npm install & cd $(pwd)/api && npm install & wait",
+    "start": "cd $(pwd)/web && npm start & cd $(pwd)/api && npm start",
+    "e2e": "cd $(pwd)/web && npm run e2e",
+    "e2e:open": "cd $(pwd)/web && npm run e2e:open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

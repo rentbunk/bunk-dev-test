@@ -7,7 +7,7 @@
             <td class="fw-bold">Total:</td>
             <td data-testid="total">{{ payouts.total }}</td>
             <td class="fw-bold">Average:</td>
-            <td data-testid="equal-share">{{ payouts.equalShare }}</td>
+            <td data-testid="equal-share">{{ payouts.equalShare.toFixed(2) }}</td>
           </tr>
         </tbody>
       </table>
@@ -33,7 +33,7 @@
           <td>{{ i + 1 }}</td>
           <td [attr.data-testid]="'payouts-owes-' + i">{{ data.owes }}</td>
           <td [attr.data-testid]="'payouts-owed-' + i">{{ data.owed }}</td>
-          <td [attr.data-testid]="'payouts-amount-' + i">{{ data.amount }}</td>
+          <td [attr.data-testid]="'payouts-amount-' + i">{{ data.amount.toFixed(2) }}</td>
         </tr>
       </tbody>
     </table>

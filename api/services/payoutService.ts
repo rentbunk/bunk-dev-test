@@ -50,9 +50,9 @@ function mapPayouts(expenses: Expense[]): PayoutResponse {
           owed: sortedTravellers[owedId],
           amount: owed,
         });
-        owedId --;
         travellers[sortedTravellers[owedId]] = 0;
         travellers[sortedTravellers[owesId]] += owed;
+        owedId --;
         continue;
       }
 
@@ -62,9 +62,9 @@ function mapPayouts(expenses: Expense[]): PayoutResponse {
           owed: sortedTravellers[owedId],
           amount: -owes,
         });
-        owesId ++;
         travellers[sortedTravellers[owedId]] += owes;
         travellers[sortedTravellers[owesId]] = 0;
+        owesId ++;
         continue;
       }
     }
@@ -75,10 +75,10 @@ function mapPayouts(expenses: Expense[]): PayoutResponse {
         owed: sortedTravellers[owedId],
         amount: owed,
       });
-      owedId --;
-      owesId ++;
       travellers[sortedTravellers[owedId]] = 0;
       travellers[sortedTravellers[owesId]] = 0;
+      owedId --;
+      owesId ++;
       continue;
     }
   }
@@ -102,4 +102,4 @@ class PayoutService {
   }
 }
 
-module.exports = { PayoutService };
+module.exports = { mapPayouts, PayoutService };

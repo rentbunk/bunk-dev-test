@@ -1,0 +1,19 @@
+.custom-button {
+  background-color: #2c588d;
+  padding: 10px 80px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-position {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.custom-table {
+  height: 22rem;
+  overflow: auto;
+}

@@ -1,6 +1,7 @@
-import { Component, AfterViewChecked, ElementRef, ViewChild, importProvidersFrom } from '@angular/core';
+import { Component, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { faEdit, faTrash, faCheck, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Expense } from '../../interfaces/travel.interface';
 import { TravelService } from '../../services/travel.service';
 
@@ -12,6 +13,10 @@ import { TravelService } from '../../services/travel.service';
 export class ListComponent implements AfterViewChecked {
   @ViewChild('expense_table') tableElement: ElementRef | null = null;
   expenseList: Observable<Expense[]> = this.travelService.expenseList$;
+
+  readonly faIconEdit: IconDefinition = faEdit;
+  readonly faIconTrash: IconDefinition = faTrash;
+  readonly faIconCheck: IconDefinition = faCheck;
   
   constructor(
     private router: Router,
@@ -24,10 +29,19 @@ export class ListComponent implements AfterViewChecked {
   }
 
   remove(index: number): void {
-    this.travelService.removeExpense(index);
+    this.travelService.setRemoveData(index);
   }
+
   settleUp(): void {
     this.travelService.getPayouts();
     this.router.navigate(['result']);
+  }
+
+  edit(index: number): void {
+    this.travelService.setEditData(index);
+  }
+
+  mark(index: number): void {
+    this.travelService.markExpense(index);
   }
 }

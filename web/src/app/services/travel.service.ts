@@ -7,6 +7,8 @@ import {
   ENV_CONFIG,
   EnvironmentConfig,
 } from '../interfaces/environment-config.interface';
+import { ExpenseStatus } from '../enums/ExpenseStatus';
+import { UpdateStatus } from '../enums/UpdateStatus';
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +22,87 @@ export class TravelService {
     payouts: [],
   });
   private isLoading = new BehaviorSubject<boolean>(false);
+  private formStatus = new BehaviorSubject<string>(UpdateStatus.ADD);
+  private selectedExpenseIndex = new BehaviorSubject<number | null>(null); 
 
   expenseList$ = this.expenseList.asObservable();
   payoutData$ = this.payoutData.asObservable();
   isLoading$ = this.isLoading.asObservable();
+  formStatus$ = this.formStatus.asObservable();
+  selectedExpenseIndex$ = this.selectedExpenseIndex.asObservable();
+
   constructor(
     private http: HttpClient,
     @Inject(ENV_CONFIG) private config: EnvironmentConfig
   ) {
     this.apiUrl = `${config.environment.apiURL}`;
   }
-
+  
   addExpense(newExpense: Expense) {
     const currentExpenses = this.expenseList.getValue();
     currentExpenses.push(newExpense);
     this.expenseList.next(currentExpenses);
   }
 
-  removeExpense(index: number) {
+  editExpense(newExpense: Expense) {
     const currentExpenses = this.expenseList.getValue();
-    const newExpenses = [...currentExpenses.slice(0, index), ...currentExpenses.slice(index + 1)];
+    const index = this.selectedExpenseIndex.getValue();
+    if(index !== null) currentExpenses[index] = newExpense;
+    this.selectedExpenseIndex.next(null);
+    this.selectedExpenseIndex.next(null);
+  }
+
+  removeExpense() {
+    const currentExpenses = this.expenseList.getValue();
+    const index = this.selectedExpenseIndex.getValue();
+    const newExpenses = [...currentExpenses.slice(0, index ?? currentExpenses.length), ...currentExpenses.slice((index ?? currentExpenses.length) + 1)];
     this.expenseList.next(newExpenses);
+    this.selectedExpenseIndex.next(null);
+  }
+
+  setAddStatus() {
+    const currentExpenses = this.expenseList.getValue();
+    const selectedIndex = this.selectedExpenseIndex.getValue();
+    if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
+    this.formStatus.next(UpdateStatus.ADD);
+  }
+
+  setEditData(index: number) {
+    const currentExpenses = this.expenseList.getValue();
+    const selectedIndex = this.selectedExpenseIndex.getValue();
+    
+    if(index === selectedIndex) {
+      currentExpenses[index].status = ExpenseStatus.ACTIVE;
+    } else {
+      if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
+      currentExpenses[index].status = ExpenseStatus.EDITING;
+    }
+    this.formStatus.next(UpdateStatus.EDIT);
+    this.selectedExpenseIndex.next(index);
+  }
+
+  setRemoveData(index: number) {
+    const currentExpenses = this.expenseList.getValue();
+    const selectedIndex = this.selectedExpenseIndex.getValue();
+    if(index === selectedIndex) {
+      currentExpenses[index].status = ExpenseStatus.ACTIVE;
+    } else {
+      if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
+      currentExpenses[index].status = ExpenseStatus.DELETING;
+    }
+    this.formStatus.next(UpdateStatus.DELETE);
+    this.selectedExpenseIndex.next(index);
+  }
+
+  markExpense(index: number) {
+    const currentExpenses = this.expenseList.getValue();
+    currentExpenses[index].status = currentExpenses[index].status === ExpenseStatus.DONE ? ExpenseStatus.ACTIVE : ExpenseStatus.DONE;
+  }
+
+  getSelectedExpense() {
+    const currentExpenses = this.expenseList.getValue();
+    const index = this.selectedExpenseIndex.getValue();
+    return index !== null ?currentExpenses[index] : null;
   }
 
   getPayouts() {

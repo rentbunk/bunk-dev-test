@@ -6,6 +6,7 @@ import { TravelService } from './services/travel.service';
 import { HttpModule } from './http.module';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { JsonPipe } from '@angular/common';
     HttpClientModule,
     CommonModule,
     HttpModule.forRoot({ environment }),
+    FontAwesomeModule,
   ],
 
   providers: [TravelService],

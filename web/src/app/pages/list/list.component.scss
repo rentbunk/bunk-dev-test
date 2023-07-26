@@ -16,4 +16,28 @@
 .custom-table {
   height: 22rem;
   overflow: auto;
+
+  fa-icon:hover {
+    cursor: pointer;
+  }
+
+  fa-icon:active {
+    color: #198754;
+  }
+
+  fa-icon {
+    margin-right: 10px;
+  }
+
+  .fa-marked {
+    color: rgb(15, 236, 15);
+  }
+
+  .fa-edit {
+    color: grey;
+  }
+
+  .fa-trash {
+    color: red;
+  }
 }

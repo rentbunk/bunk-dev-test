@@ -1,7 +1,7 @@
 <div class="col-12 d-flex justify-content-center p-3" [formGroup]="form">
   <div class="col-xs-12 col-sm-8 col-md-10 col-lg-10 p-3 bg-white form-container">
-    <div class="row">
-      <div class="col-sm-4 pb-4 position-relative">
+    <div class="row d-flex justify-content-center">
+      <div class="col-sm-4 pb-4 position-relative" *ngIf="status !== 'DELETE'">
         <label for="travleName" class="form-label">Traveller Name</label>
         <input
           class="form-control"
@@ -9,6 +9,7 @@
           id="travelerName"
           formControlName="name"
           data-testid="name-input"
+          #name_input
         />
         <div
           *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
@@ -17,7 +18,7 @@
           Please enter your name.
         </div>
       </div>
-      <div class="col-sm-4 pb-4 position-relative">
+      <div class="col-sm-4 pb-4 position-relative" *ngIf="status !== 'DELETE'"> 
         <label for="inputPrice" class="form-label">Expense</label>
         <input
           class="form-control"
@@ -39,8 +40,27 @@
           type="submit"
           class="btn btn-success custom-button cursor-pointer"
           data-testid="add-expense-button"
+          *ngIf="status !== 'DELETE'"
         >
-          Add
+          {{status === 'ADD' ? 'Add' : 'Edit'}}
+        </button>
+        <button
+          (click)="delete()"
+          type="submit"
+          class="btn btn-success custom-button cursor-pointer"
+          data-testid="add-expense-button"
+          *ngIf="status === 'DELETE'"
+        >
+          Delete
+        </button>
+        <button
+          (click)="cancel()"
+          type="submit"
+          class="btn btn-success custom-button cursor-pointer cancel-button"
+          data-testid="add-expense-button"
+          *ngIf="status === 'EDIT' || status === 'DELETE'"
+        >
+          Cancel
         </button>
       </div>
     </div>

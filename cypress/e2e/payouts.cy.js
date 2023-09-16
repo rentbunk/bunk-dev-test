@@ -20,6 +20,18 @@ describe('Payouts', () => {
     cy.get('[data-testid="payouts-owed-0"]').should('contain.text', 'Bao');
     cy.get('[data-testid="payouts-amount-0"]').should('contain.text', '0.25');
   });
+
+  it('Edit button correct behavior', () => {
+    cy.visit('http://localhost:4200');
+
+    cy.get('[data-testid="name-input"]').type('Adriana');
+    cy.get('[data-testid="amount-input"]').type('5.75');
+    cy.get('[data-testid="add-expense-button"]').click();
+
+    cy.get('[data-testid="delete-data-0"]').click();
+    cy.get('[data-testid="edit-data-0"]').click();
+    cy.get('[data-testid="edit-data-0"]').should('have.class', 'fa-marked');
+  })
 });
 
 

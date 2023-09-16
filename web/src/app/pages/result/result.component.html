@@ -1,0 +1,42 @@
+<div class="table-responsive-md mb-5">
+  <div class="mx-auto col-xs-12 col-sm-8 col-md-10 col-lg-10 p-3" *ngIf="(payoutData | async) as payouts">
+    <div class="text-right py-3 d-flex justify-content-end" *ngIf="payouts.total > 0">
+      <table class="table table-responsive table-primary w-25">
+        <tbody>
+          <tr>
+            <td class="fw-bold">Total:</td>
+            <td data-testid="total">{{ payouts.total }}</td>
+            <td class="fw-bold">Average:</td>
+            <td data-testid="equal-share">{{ payouts.equalShare.toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="spinner text-center" *ngIf="isLoading | async">
+      <div class="spinner-grow text-success" role="status"></div>
+      <div class="spinner-grow text-danger" role="status"></div>
+      <div class="spinner-grow text-warning" role="status"></div>
+    </div>
+    <table
+      class="table table-light table-striped table-hover align-middle mb-5 p-5"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Debtor</th>
+          <th scope="col">Creditor</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of payouts.payouts; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td [attr.data-testid]="'payouts-owes-' + i">{{ data.owes }}</td>
+          <td [attr.data-testid]="'payouts-owed-' + i">{{ data.owed }}</td>
+          <td [attr.data-testid]="'payouts-amount-' + i">{{ data.amount.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h1 class="title-style text-center" *ngIf="payouts.payouts.length === 0">No Payout</h1>
+  </div>
+</div>

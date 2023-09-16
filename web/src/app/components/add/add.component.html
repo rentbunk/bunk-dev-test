@@ -3,63 +3,32 @@
     <div class="row d-flex justify-content-center">
       <div class="col-sm-4 pb-4 position-relative" *ngIf="status !== 'DELETE'">
         <label for="travleName" class="form-label">Traveller Name</label>
-        <input
-          class="form-control"
-          type="text"
-          id="travelerName"
-          formControlName="name"
-          data-testid="name-input"
-          #name_input
-        />
-        <div
-          *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-          class="text-danger position-absolute bottom-0"
-        >
+        <input class="form-control" type="text" id="travelerName" formControlName="name" data-testid="name-input"
+          #name_input />
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          class="text-danger position-absolute bottom-0">
           Please enter your name.
         </div>
       </div>
-      <div class="col-sm-4 pb-4 position-relative" *ngIf="status !== 'DELETE'"> 
+      <div class="col-sm-4 pb-4 position-relative" *ngIf="status !== 'DELETE'">
         <label for="inputPrice" class="form-label">Expense</label>
-        <input
-          class="form-control"
-          type="number"
-          id="inputPrice"
-          formControlName="price"
-          data-testid="amount-input"
-        />
-        <div
-          *ngIf="form.get('price')?.errors?.['min'] && form.get('price')?.touched"
-          class="text-danger position-absolute bottom-0"
-        >
+        <input class="form-control" type="number" id="inputPrice" formControlName="price" data-testid="amount-input" />
+        <div *ngIf="form.get('price')?.errors?.['min'] && form.get('price')?.touched"
+          class="text-danger position-absolute bottom-0">
           Price should be bigger than 0.
         </div>
       </div>
       <div class="col-sm-4 pb-4 mt-4 d-flex justify-content-center">
-        <button
-          (click)="save()"
-          type="submit"
-          class="btn btn-success custom-button cursor-pointer"
-          data-testid="add-expense-button"
-          *ngIf="status !== 'DELETE'"
-        >
+        <button (click)="save()" type="submit" class="btn btn-success custom-button cursor-pointer"
+          data-testid="add-expense-button" *ngIf="status !== 'DELETE'">
           {{status === 'ADD' ? 'Add' : 'Edit'}}
         </button>
-        <button
-          (click)="delete()"
-          type="submit"
-          class="btn btn-success custom-button cursor-pointer"
-          data-testid="add-expense-button"
-          *ngIf="status === 'DELETE'"
-        >
+        <button (click)="delete()" type="submit" class="btn btn-success custom-button cursor-pointer"
+          data-testid="add-expense-button" *ngIf="status === 'DELETE'">
           Delete
         </button>
-        <button
-          (click)="cancel()"
-          type="submit"
-          class="btn btn-success custom-button cursor-pointer cancel-button"
-          data-testid="add-expense-button"
-          *ngIf="status === 'EDIT' || status === 'DELETE'"
-        >
+        <button (click)="cancel()" type="submit" class="btn btn-success custom-button cursor-pointer cancel-button"
+          data-testid="add-expense-button" *ngIf="status === 'EDIT' || status === 'DELETE'">
           Cancel
         </button>
       </div>

@@ -11,6 +11,12 @@ import { TravelService } from '../../services/travel.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
+  status(status: any) {
+    throw new Error('Method not implemented.');
+  }
+  ngOnInit() {
+    throw new Error('Method not implemented.');
+  }
   expenseList: Observable<Expense[]> = this.travelService.expenseList$;
 
   readonly faIconEdit: IconDefinition = faEdit;

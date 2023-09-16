@@ -70,13 +70,15 @@ export class TravelService {
   setEditData(index: number) {
     const currentExpenses = this.expenseList.getValue();
     const selectedIndex = this.selectedExpenseIndex.getValue();
-    
+    console.log("EDIT>>>", currentExpenses, selectedIndex, index)
     if(index === selectedIndex) {
       currentExpenses[index].status = ExpenseStatus.ACTIVE;
-    } else {
-      if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
-      currentExpenses[index].status = ExpenseStatus.EDITING;
+    } 
+    if(selectedIndex !== null) {
+      currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
     }
+    currentExpenses[index].status = ExpenseStatus.EDITING;
+    
     this.formStatus.next(UpdateStatus.EDIT);
     this.selectedExpenseIndex.next(index);
   }
@@ -86,10 +88,12 @@ export class TravelService {
     const selectedIndex = this.selectedExpenseIndex.getValue();
     if(index === selectedIndex) {
       currentExpenses[index].status = ExpenseStatus.ACTIVE;
-    } else {
-      if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
-      currentExpenses[index].status = ExpenseStatus.DELETING;
+    } 
+    if(selectedIndex !== null) {
+      currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
     }
+    currentExpenses[index].status = ExpenseStatus.DELETING;
+  
     this.formStatus.next(UpdateStatus.DELETE);
     this.selectedExpenseIndex.next(index);
   }

@@ -1,9 +1,17 @@
-import { Component, OnInit, AfterViewChecked, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TravelService } from 'src/app/services/travel.service';
 import { ExpenseStatus } from 'src/app/enums/ExpenseStatus';
 import { UpdateStatus } from 'src/app/enums/UpdateStatus';
 import { combineLatest, Subscription } from 'rxjs';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add',
@@ -12,6 +20,8 @@ import { combineLatest, Subscription } from 'rxjs';
 })
 export class AddComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('name_input') nameInput: ElementRef | null = null;
+  @Output() itemAdded: EventEmitter<void> = new EventEmitter<void>();
+
   form: FormGroup;
   status: string | null = null;
   formStatus = this.travelService.formStatus$;
@@ -19,9 +29,7 @@ export class AddComponent implements OnInit, AfterViewChecked, OnDestroy {
   private combineLatestSubscription: Subscription | undefined;
   private shouldFocusInput = false;
 
-  constructor(
-    private travelService: TravelService
-  ) {
+  constructor(private travelService: TravelService) {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       price: new FormControl(0, [Validators.required, Validators.min(1)]),
@@ -29,26 +37,32 @@ export class AddComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.combineLatestSubscription = combineLatest([this.formStatus, this.selectedExpenseIndex]).subscribe(([formStatus, selectedIndex]) => {
+    this.combineLatestSubscription = combineLatest([
+      this.formStatus,
+      this.selectedExpenseIndex,
+    ]).subscribe(([formStatus, selectedIndex]) => {
       this.status = formStatus;
-      if(formStatus === UpdateStatus.ADD) {
+      if (formStatus === UpdateStatus.ADD) {
         this.form = new FormGroup({
           name: new FormControl('', Validators.required),
           price: new FormControl(0, [Validators.required, Validators.min(1)]),
         });
-      } else if(formStatus === UpdateStatus.EDIT) {
+      } else if (formStatus === UpdateStatus.EDIT) {
         const selectedExpense = this.travelService.getSelectedExpense();
         this.form = new FormGroup({
           name: new FormControl(selectedExpense?.name, Validators.required),
-          price: new FormControl(selectedExpense?.amount, [Validators.required, Validators.min(1)]),
+          price: new FormControl(selectedExpense?.amount, [
+            Validators.required,
+            Validators.min(1),
+          ]),
         });
       }
       this.shouldFocusInput = true;
-    })
+    });
   }
 
   ngAfterViewChecked(): void {
-    if(this.shouldFocusInput)this.nameInput?.nativeElement.focus();
+    if (this.shouldFocusInput) this.nameInput?.nativeElement.focus();
     this.shouldFocusInput = false;
   }
 
@@ -68,8 +82,10 @@ export class AddComponent implements OnInit, AfterViewChecked, OnDestroy {
         status: ExpenseStatus.ACTIVE,
       };
 
-      if(this.status === UpdateStatus.ADD) this.travelService.addExpense(newExpense);
-      if(this.status === UpdateStatus.EDIT) this.travelService.editExpense(newExpense);
+      if (this.status === UpdateStatus.ADD)
+        this.travelService.addExpense(newExpense);
+      if (this.status === UpdateStatus.EDIT)
+        this.travelService.editExpense(newExpense);
 
       this.travelService.setAddStatus();
       this.form = new FormGroup({
@@ -77,13 +93,14 @@ export class AddComponent implements OnInit, AfterViewChecked, OnDestroy {
         price: new FormControl(0, [Validators.required, Validators.min(1)]),
       });
     }
+    this.itemAdded.emit();
   }
 
   delete() {
     this.travelService.removeExpense();
     this.travelService.setAddStatus();
   }
-  
+
   cancel() {
     this.travelService.setAddStatus();
   }

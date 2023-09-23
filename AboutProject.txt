@@ -1,1 +1,11 @@
-What does this project do?
+1. Scroll Bottom Setting:
+
+Implemented automatic scrolling to the bottom of the expense table in the ListComponent whenever a new item is added or edited.
+Achieved this by using ViewChild to access the table's container and creating a scrollToBottom method that scrolls to the container's bottom.
+Connected this functionality to the itemAdded event emitted by the AddComponent through event binding in the ListComponent template.
+
+
+2. Removal of Unnecessary Code:
+
+Simplified and improved the code in your TravelService to handle the status of expense items (e.g., "editing" and "deleting") more efficiently.
+Ensured that only one item can be in the "editing" or "deleting" state at a time by resetting the state of any other items to "active" when needed.

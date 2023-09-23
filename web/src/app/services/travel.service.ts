@@ -49,7 +49,7 @@ export class TravelService {
     const index = this.selectedExpenseIndex.getValue();
     if(index !== null) currentExpenses[index] = newExpense;
     this.selectedExpenseIndex.next(null);
-    this.selectedExpenseIndex.next(null);
+    // this.selectedExpenseIndex.next(null);
   }
 
   removeExpense() {
@@ -75,21 +75,22 @@ export class TravelService {
       currentExpenses[index].status = ExpenseStatus.ACTIVE;
     } else {
       if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
-      currentExpenses[index].status = ExpenseStatus.EDITING;
     }
+    currentExpenses[index].status = ExpenseStatus.EDITING;
     this.formStatus.next(UpdateStatus.EDIT);
     this.selectedExpenseIndex.next(index);
   }
 
   setRemoveData(index: number) {
+    console.log("HEREHER")
     const currentExpenses = this.expenseList.getValue();
     const selectedIndex = this.selectedExpenseIndex.getValue();
     if(index === selectedIndex) {
       currentExpenses[index].status = ExpenseStatus.ACTIVE;
     } else {
       if(selectedIndex !== null) currentExpenses[selectedIndex].status = ExpenseStatus.ACTIVE;
-      currentExpenses[index].status = ExpenseStatus.DELETING;
     }
+    currentExpenses[index].status = ExpenseStatus.DELETING;
     this.formStatus.next(UpdateStatus.DELETE);
     this.selectedExpenseIndex.next(index);
   }

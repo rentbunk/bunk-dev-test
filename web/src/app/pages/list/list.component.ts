@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { faEdit, faTrash, faCheck, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,8 @@ import { TravelService } from '../../services/travel.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
+  @ViewChildren('row') rows!: QueryList<ElementRef>;
+
   expenseList: Observable<Expense[]> = this.travelService.expenseList$;
 
   readonly faIconEdit: IconDefinition = faEdit;
@@ -21,6 +23,19 @@ export class ListComponent {
     private router: Router,
     private travelService: TravelService,
   ) {}
+
+  ngAfterViewInit() {
+    this.rows.changes.subscribe(() => {
+      this.scrollToEnd();
+    });
+  }
+
+  scrollToEnd() {
+    const lastRow = this.rows.last;
+    if (lastRow) {
+      lastRow.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }
 
   remove(index: number): void {
     this.travelService.setRemoveData(index);

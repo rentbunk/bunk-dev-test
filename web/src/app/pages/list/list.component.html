@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody *ngIf="(expenseList | async) as list">
-        <tr *ngFor="let data of list; let i = index">
+        <tr *ngFor="let data of list; let i = index" #row>
           <td>{{ i + 1 }}</td>
           <td>{{ data.name }}</td>
           <td class="d-flex justify-content-between">

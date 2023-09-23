@@ -1,7 +1,17 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewChecked,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { faEdit, faTrash, faCheck, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faTrash,
+  faCheck,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 import { Expense } from '../../interfaces/travel.interface';
 import { TravelService } from '../../services/travel.service';
 
@@ -10,17 +20,26 @@ import { TravelService } from '../../services/travel.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements AfterViewChecked {
   expenseList: Observable<Expense[]> = this.travelService.expenseList$;
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
   readonly faIconEdit: IconDefinition = faEdit;
   readonly faIconTrash: IconDefinition = faTrash;
   readonly faIconCheck: IconDefinition = faCheck;
-  
-  constructor(
-    private router: Router,
-    private travelService: TravelService,
-  ) {}
+
+  constructor(private router: Router, private travelService: TravelService) {}
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop =
+        this.scrollContainer.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
 
   remove(index: number): void {
     this.travelService.setRemoveData(index);

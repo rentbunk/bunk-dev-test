@@ -21,5 +21,14 @@
     >
       Result
     </span>
+    <span
+      class="header-menu p-3"
+      (click)="setActiveButton('profile')"
+      [ngClass]="{ active: active === 'profile' }"
+      [routerLink]="['profile']"
+      routerLinkActive="active"
+    >
+      Profile
+    </span>
   </div>
 </div>

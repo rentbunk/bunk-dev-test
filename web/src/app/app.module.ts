@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { JsonPipe } from '@angular/common';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { JsonPipe } from '@angular/common';
     ResultComponent,
     HeaderComponent,
     FooterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

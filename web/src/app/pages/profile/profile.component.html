@@ -1,0 +1,45 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="primarySkill">Primary Skill</label>
+    <select
+      id="primarySkill"
+      formControlName="primarySkill"
+      class="form-control"
+    >
+      <option *ngFor="let skill of skills" [value]="skill">{{ skill }}</option>
+    </select>
+    <div
+      *ngIf="
+        profileForm.get('primarySkill')?.invalid &&
+        (profileForm.get('primarySkill')?.dirty ||
+          profileForm.get('primarySkill')?.touched)
+      "
+      class="alert alert-danger"
+    >
+      Primary Skill is required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Skills</label>
+    <div formGroupName="skills">
+      <div *ngFor="let skill of skills">
+        <input
+          type="checkbox"
+          [id]="skill"
+          [formControlName]="skill"
+          [attr.disabled]="
+            profileForm.get('skills')?.get(skill)?.disabled ? '' : null
+          "
+        />
+        <label [for]="skill">{{ skill }}</label>
+      </div>
+    </div>
+  </div>
+  <button
+    type="submit"
+    [disabled]="profileForm.invalid"
+    class="btn btn-primary"
+  >
+    Submit
+  </button>
+</form>

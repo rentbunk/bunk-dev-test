@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "install-all": "npm install",
+    "postinstall": "cd api && npm install && cd ../web && npm install",
+    "start": "concurrently \"npm run start-web\" \"npm run start-api\"",
+    "start-api": "cd api && npm start",
+    "start-web": "cd web && ng serve",
+    "test": "cd api && npm test",
+    "e2e": "concurrently \"npm run start\" \"npx cypress run\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "cypress": "^12.16.0"
+  },
+  "dependencies": {
+    "@angular/cli": "^16.2.4",
+    "postinstall": "^0.8.0"
+  }
+}

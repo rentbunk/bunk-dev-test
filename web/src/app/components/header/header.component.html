@@ -1,0 +1,34 @@
+<div class="shadow-lg p-2 mb-3 d-flex justify-content-between header">
+  <div class="d-flex align-items-center">
+    <h1 class="fs-3 p-1 rounded mb-0 header-logo">TRAVEL</h1>
+  </div>
+  <div class="d-flex align-items-center">
+    <span
+      class="header-menu p-3"
+      (click)="setActiveButton('list')"
+      [ngClass]="{ active: active === 'list' }"
+      [routerLink]="['/list']"
+      routerLinkActive="active"
+    >
+      List
+    </span>
+    <span
+      class="header-menu p-3"
+      (click)="setActiveButton('result')"
+      [ngClass]="{ active: active === 'result' }"
+      [routerLink]="['/result']"
+      routerLinkActive="active"
+    >
+      Result
+    </span>
+    <span
+      class="header-menu p-3"
+      (click)="setActiveButton('skill')"
+      [ngClass]="{ active: active === 'skill' }"
+      [routerLink]="['/skill']"
+      routerLinkActive="active"
+    >
+      Skill
+    </span>
+  </div>
+</div>

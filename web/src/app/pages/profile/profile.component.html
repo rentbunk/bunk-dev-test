@@ -1,0 +1,20 @@
+<div class="mx-auto col-xs-12 col-sm-8 col-md-10 col-lg-10 p-3 mb-1 custom-table">
+    <div>
+        <label for="primarySkill">Primary Skill</label>
+        <select id="primarySkill" [(ngModel)]="primarySkill" required>
+          <option value="" disabled>Select your primary skill</option>
+          <option *ngFor="let skill of skills" [value]="skill">{{skill}}</option>
+        </select>
+        <div *ngIf="primarySkillRequired" class="error">Primary Skill is required!</div>
+      </div>
+    
+      <div>
+        <label>Skills</label>
+        <div *ngFor="let skill of skills">
+          <input type="checkbox" [value]="skill" [(ngModel)]="selectedSkills[skill]" [disabled]="skill === primarySkill">{{skill}}
+        </div>
+      </div>
+    
+      <button (click)="validateSkills()">Submit</button>
+      <div *ngIf="noSkillsSelectedError" class="error">At least one skill should be selected!</div>    
+</div>

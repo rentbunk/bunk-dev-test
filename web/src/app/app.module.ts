@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './components/add/add.component';
 import { ListComponent } from './pages/list/list.component';
 import { ResultComponent } from './pages/result/result.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -26,6 +27,7 @@ import { JsonPipe } from '@angular/common';
     AddComponent,
     ListComponent,
     ResultComponent,
+    ProfileComponent,
     HeaderComponent,
     FooterComponent,
   ],

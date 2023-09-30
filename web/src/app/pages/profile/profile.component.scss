@@ -1,0 +1,55 @@
+/* Container styling */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Label styling */
+  label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  /* Select input styling */
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* Checkbox group styling */
+  div *ngFor {
+    margin-bottom: 10px;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #218838;
+  }
+  

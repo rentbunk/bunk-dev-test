@@ -16,10 +16,19 @@
       class="header-menu p-3"
       (click)="setActiveButton('result')"
       [ngClass]="{ active: active === 'result' }"
-      [routerLink]="['result']"
+      [routerLink]="['/result']"
       routerLinkActive="active"
     >
       Result
+    </span>
+    <span
+      class="header-menu p-3"
+      (click)="setActiveButton('skill')"
+      [ngClass]="{ active: active === 'skill' }"
+      [routerLink]="['/skill']"
+      routerLinkActive="active"
+    >
+      Skill
     </span>
   </div>
 </div>

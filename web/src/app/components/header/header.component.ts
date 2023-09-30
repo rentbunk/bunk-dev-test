@@ -11,6 +11,7 @@ export class HeaderComponent {
   ngOnInit(): void {}
 
   setActiveButton(button: string): void {
+    console.log(button, '==-=-=-');
     this.active = button;
   }
 }
